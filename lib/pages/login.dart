@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  final _loginController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +23,7 @@ class LoginPage extends StatelessWidget {
           _textFormField(
             label: 'Login',
             hind: 'Digite o login',
+            controller: _loginController,
           ),
           SizedBox(
             height: 20,
@@ -27,13 +31,14 @@ class LoginPage extends StatelessWidget {
           _textFormField(
             label: 'Senha',
             hind: 'Digite a senha',
+            controller: _passwordController,
           ),
           SizedBox(
             height: 20,
           ),
           _raisedButton(
             text: 'Login',
-            onPressed: () {},
+            onPressed: _onPressedLogin,
           ),
         ],
       ),
@@ -61,8 +66,10 @@ class LoginPage extends StatelessWidget {
     @required label,
     @required hind,
     password = false,
+    controller,
   }) {
     return TextFormField(
+      controller: controller,
       obscureText: password,
       style: TextStyle(
         fontSize: 25,
@@ -75,5 +82,12 @@ class LoginPage extends StatelessWidget {
         hintStyle: TextStyle(fontSize: 16),
       ),
     );
+  }
+
+  void _onPressedLogin() {
+    String login = _loginController.text;
+    String password = _passwordController.text;
+
+    print('Login: $login \nPassword: $password');
   }
 }
