@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final _loginController = TextEditingController();
+
   final _passwordController = TextEditingController();
+  final _focusPassword = FocusNode();
+
   final _formKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +40,8 @@ class LoginPage extends StatelessWidget {
               hind: 'Digite o login',
               controller: _loginController,
               validate: _validateLogin,
+              textInputAction: TextInputAction.next,
+              nextFocusNode: _focusPassword,
             ),
             SizedBox(
               height: 20,
@@ -38,6 +52,8 @@ class LoginPage extends StatelessWidget {
               password: true,
               controller: _passwordController,
               validate: _validatePassword,
+              keyboardType: TextInputType.number,
+              focusNode: _focusPassword,
             ),
             SizedBox(
               height: 20,
@@ -75,11 +91,25 @@ class LoginPage extends StatelessWidget {
     password = false,
     controller,
     validate,
+    TextInputType keyboardType,
+    focusNode,
+    nextFocusNode,
+    textInputAction,
+    onFieldSubmitted,
   }) {
     return TextFormField(
+      textInputAction: textInputAction,
+      focusNode: focusNode,
+      keyboardType: keyboardType,
       validator: validate,
       controller: controller,
       obscureText: password,
+      onFieldSubmitted: (String text) {
+        if (nextFocusNode != null) {
+          FocusScope.of(context).requestFocus(nextFocusNode);
+        }
+        return onFieldSubmitted(text);
+      },
       style: TextStyle(
         fontSize: 25,
         color: Colors.blue,
