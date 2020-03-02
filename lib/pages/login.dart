@@ -31,6 +31,7 @@ class LoginPage extends StatelessWidget {
           _textFormField(
             label: 'Senha',
             hind: 'Digite a senha',
+            password: true,
             controller: _passwordController,
           ),
           SizedBox(
