@@ -1,3 +1,5 @@
+import 'package:carros/widgets/app_button.dart';
+import 'package:carros/widgets/app_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -35,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.all(16),
         child: ListView(
           children: <Widget>[
-            _textFormField(
+            AppTextFormField(
               label: 'Login',
               hind: 'Digite o login',
               controller: _loginController,
@@ -46,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 20,
             ),
-            _textFormField(
+            AppTextFormField(
               label: 'Senha',
               hind: 'Digite a senha',
               password: true,
@@ -58,67 +60,12 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               height: 20,
             ),
-            _raisedButton(
+            AppRaisedButton(
               text: 'Login',
               onPressed: _onPressedLogin,
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  _raisedButton({@required text, @required onPressed}) {
-    return Container(
-      height: 45,
-      child: RaisedButton(
-        color: Colors.blue,
-        onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
-
-  TextFormField _textFormField({
-    @required label,
-    @required hind,
-    password = false,
-    controller,
-    validate,
-    TextInputType keyboardType,
-    focusNode,
-    nextFocusNode,
-    textInputAction,
-    onFieldSubmitted,
-  }) {
-    return TextFormField(
-      textInputAction: textInputAction,
-      focusNode: focusNode,
-      keyboardType: keyboardType,
-      validator: validate,
-      controller: controller,
-      obscureText: password,
-      onFieldSubmitted: (String text) {
-        if (nextFocusNode != null) {
-          FocusScope.of(context).requestFocus(nextFocusNode);
-        }
-        return onFieldSubmitted(text);
-      },
-      style: TextStyle(
-        fontSize: 25,
-        color: Colors.blue,
-      ),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(fontSize: 25),
-        hintText: hind,
-        hintStyle: TextStyle(fontSize: 16),
       ),
     );
   }
